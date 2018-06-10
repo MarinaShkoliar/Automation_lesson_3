@@ -11,23 +11,18 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 
 public class Category {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         WebDriver driver = initChromeDriver();
         EventFiringWebDriver eventHandler = new EventFiringWebDriver(driver);
         EventCapture eCapture = new EventCapture();
         eventHandler.register(eCapture);
-        //eventHandler.findElement(By.id("email")).sendKeys("asdsadsa");
         eventHandler.navigate().to("http://prestashop-automation.qatestlab.com.ua/admin147ajyvk0/");
         WebElement fieldlogin = eventHandler.findElement(By.id("email"));
         fieldlogin.sendKeys("webinar.test@gmail.com");
         WebElement fieldpass = driver.findElement(By.id("passwd"));
         fieldpass.sendKeys("Xcg7299bnSmMuRLp9ITw");
         fieldpass.submit();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(5000);
         Actions builder = new Actions(driver);
         builder.moveToElement(driver.findElement(By.xpath("//nav/ul/li[4]/a"))).build().perform();
         WebElement category = driver.findElement(By.xpath("//nav/ul/li[4]/ul/li[2]/a"));
@@ -44,6 +39,8 @@ public class Category {
         filter.submit();
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("scroll(0, 350)");
+        Thread.sleep(5000);
+        driver.quit();
 
     }
     public static WebDriver initChromeDriver() {
